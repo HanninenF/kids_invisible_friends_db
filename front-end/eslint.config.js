@@ -17,14 +17,15 @@ export default defineConfig([
     files: ["**/*.{ts,js}"], // ← gäller .ts och .js
     languageOptions: {
       parserOptions: {
-        project: ["./tsconfig.app.json"],
+        project: ["./tsconfig.app.json",
+          "./tsconfig.node.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       globals: {
         ...globals.browser,
         ...globals.node,
       },
-    },
+    },  
     plugins: {
       react,
       "react-hooks": reactHooks,
@@ -47,7 +48,8 @@ export default defineConfig([
     files: ["**/*.tsx"], // ← gäller enbart TSX-komponenter
     languageOptions: {
       parserOptions: {
-        project: ["./tsconfig.app.json"],
+        project: [ "./tsconfig.app.json",
+          "./tsconfig.node.json" ],
         tsconfigRootDir: import.meta.dirname,
       },
       globals: {
