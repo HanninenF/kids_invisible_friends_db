@@ -5,13 +5,18 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec \"node --loader ts-node/esm src/index.ts\"",
     "build": "tsc -b",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prisma:seed": "tsx ./prisma/seed.ts",
+    "seed": "prisma db seed"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "description": "",
   "type": "module",
+  "prisma": {
+    "seed": "tsx ./prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^6.17.0",
     "dotenv": "^17.2.3",
@@ -26,6 +31,7 @@
     "nodemon": "^3.1.10",
     "prisma": "^6.17.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0"
   }
