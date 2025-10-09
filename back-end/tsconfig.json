@@ -2,7 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": "./",
 
     /* Moderna TS-inställningar */
     "target": "ES2022",
@@ -29,6 +29,6 @@
     "erasableSyntaxOnly": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["./src/**/*.ts"],
+  "include": ["./src/**/*.ts", "./prisma/**/*.ts"],
   "exclude": ["./dist"]
 }
