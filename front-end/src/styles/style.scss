@@ -1,0 +1,128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Fullsida-layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background-color: #4fa3b5;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* MAIN */
+.app-container {
+  display: flex;
+  flex: 1;
+  background-color: #e7f4f6;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 320px;
+  background-color: #cce6ea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  min-height: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 15px 20px;
+  background-color: #a7d8de;
+  border: none;
+  cursor: pointer;
+  width: 90%;
+  border-radius: 6px;
+  color: #2a2a2a;
+  font-weight: 500;
+  transition: background 0.2s;
+
+}
+
+.btn:hover {
+  background-color: #96cdd3;
+}
+
+.btn.active {
+  background-color: #7fc4cb;
+  color: white;
+}
+
+.btn.add {
+  margin-top: auto;
+  background-color: #4fa3b5;
+  color: white;
+  font-weight: bold;
+}
+
+.btn.add:hover {
+  background-color: #418e9f;
+}
+
+/* Formuläret */
+.form-area {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.Modal {
+  background-color: #a7d8de;
+  padding: 15px;
+  width: 90%;
+  border-radius: 6px;
+  color: #2a2a2a;
+}
+
+.Modal h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.Modal input,
+.Modal select {
+  width: 95%;
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 1px solid #8fbec4;
+  border-radius: 4px;
+}
+
+/* CARD CONTAINER */
+.card-container {
+  flex: 1;
+  background-color: #e7f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: #4fa3b5;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #4fa3b5;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
