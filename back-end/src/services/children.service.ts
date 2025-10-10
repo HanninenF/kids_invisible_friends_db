@@ -1,6 +1,6 @@
 import type { Child } from '@prisma/client';
-import * as childData from '';
-import type { ChildDTO } from '../../types/DTO.types/Children.DTO.types';
+import * as childData from '../data/children.data';
+import type { ChildDTO } from '../types/DTO.types/children.DTO.types';
 
 export const getAllChildren = async (): Promise<ChildDTO[]> => {
   const rows: Child[] = await childData.findAll();
