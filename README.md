@@ -29,3 +29,14 @@ git update-branch
 för att uppdatera din feature-branch med senaste `main` innan du pushar.
 
 ---
+
+**⬇ Helt annat grej! ⬇**
+
+## 🧭 **Snabb uppdatering av aktuell branch med `main`**
+
+### Stå i den branch du vill uppdatera med main
+
+```bash
+git fetch origin
+git merge --ff-only origin/main
+```
