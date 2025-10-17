@@ -1,5 +1,5 @@
-import prisma from '@prisma/client';
 import 'dotenv/config';
+import prisma from '../../prisma/prismaClient';
 export type DatabaseState = {
   isConnected: boolean;
 };
