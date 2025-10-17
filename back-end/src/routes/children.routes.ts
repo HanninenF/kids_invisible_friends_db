@@ -8,7 +8,7 @@ import * as childrenService from '../services/children.service';
 import type { ChildDTO } from '../types/DTO.types/children.DTO.types';
 const router = express.Router();
 
-router.get('/', async (_req, res) => {
+router.get('/children', async (_req, res) => {
   const children: ChildDTO[] = await childrenService.getAllChildren();
   res.json(children);
 });
