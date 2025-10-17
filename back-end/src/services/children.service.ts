@@ -1,4 +1,4 @@
-import type { Child } from '@prisma/client';
+import type { Child, Prisma } from '@prisma/client';
 import * as childData from '../data/children.data';
 import type { ChildDTO } from '../types/DTO.types/children.DTO.types';
 
@@ -17,3 +17,8 @@ function mapChildBase(c: Child): ChildDTO {
     mainAbility: c.mainAbility,
   };
 }
+
+export const createChild = async (data: Prisma.ChildCreateInput): Promise<ChildDTO> => {
+  const child = await childData.createOne(data);
+  return mapChildBase(child);
+};

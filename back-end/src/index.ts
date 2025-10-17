@@ -1,13 +1,15 @@
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
-import { connectDatabase, disconnectDatabase } from './config/database.js';
+import { connectDatabase, disconnectDatabase } from './config/database';
+import childrenRoutes from './routes/children.routes';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
 app.use(cors());
-
+// Parse JSON request bodies
+app.use(express.json());
+app.use('/api/children', childrenRoutes);
 const server = app.listen(PORT, () => {
   connectDatabase()
     .then(() => {
