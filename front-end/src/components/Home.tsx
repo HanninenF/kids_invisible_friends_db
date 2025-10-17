@@ -2,14 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useFormContext } from "../context/FormContext";
 import Modal from "./Modal";
 import { getData, addBarn, addVan } from "../services/DataService";
-import type { Barn, Van, MockDataType } from "../type/DataType";
+import type { Barn, Van, MockDataType, SidebarProps } from "../type/DataType";
 
 // SIDEBAR – inuti samma fil (ingen extra import behövs)
-interface SidebarProps {
-  onAddBarn: (barn: Barn) => void;
-  onAddVan: (vän: Van) => void;
-  barnLista: Barn[];
-}
 
 const Sidebar: React.FC<SidebarProps> = ({ onAddBarn, onAddVan, barnLista }) => {
   const { activeForm, setActiveForm } = useFormContext();
@@ -45,15 +40,15 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     // Hämta mockdata vid start
-    getData().then(setData);
+    void getData().then(setData);
   }, []);
 
-  const handleAddBarn = async (barn: Barn) => {
+  const handleAddBarn = async (barn: Barn): Promise<void> => {
     await addBarn(barn);
     setData((prev) => ({ ...prev, barn: [...prev.barn, barn] }));
   };
 
-  const handleAddVan = async (vän: Van) => {
+  const handleAddVan = async (vän: Van): Promise<void> => {
     await addVan(vän);
     setData((prev) => ({ ...prev, vänner: [...prev.vänner, vän] }));
   };
@@ -69,8 +64,8 @@ const Home: React.FC = () => {
 
       <div className="app-container">
         <Sidebar
-          onAddBarn={handleAddBarn}
-          onAddVan={handleAddVan}
+          onAddBarn={() => handleAddBarn}
+          onAddVan={() => handleAddVan}
           barnLista={data.barn}
         />
 

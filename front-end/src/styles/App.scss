@@ -177,7 +177,6 @@
 
 /* ==== Korten i listorna ==== */
 .card {
-  /* background-color: white; */
   background-color: #d3f1f5;
   border-radius: 8px;
   padding: 15px 20px;
@@ -193,6 +192,21 @@
 .card h3 {
   color: #4fa3b5;
   margin-bottom: 6px;
+}
+
+.card section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card section button {
+  background-color: transparent;
+  border: none;
+}
+
+.card section .btnDelete:hover {
+  font-weight: 700;
+  color: red;
 }
 
 /* FOOTER */

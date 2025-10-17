@@ -1,4 +1,8 @@
 //FormatContext type
+import React from "react";
+
+
+
 export type FormType = "barn" | "vän" | null;
 
 export interface FormData {
@@ -44,3 +48,11 @@ export interface ModalProps {
   onAddVan?: (vän: Van) => void;
   barnLista?: Barn[];
 }
+
+export interface SidebarProps {
+  onAddBarn: (barn: Barn) => void;
+  onAddVan: (vän: Van) => void;
+  barnLista: Barn[];
+}
+
+

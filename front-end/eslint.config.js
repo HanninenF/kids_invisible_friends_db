@@ -25,7 +25,13 @@ export default defineConfig([
         ...globals.browser,
         ...globals.node,
       },
-    },  
+    },
+    plugins: ["react", "@typescript-eslint"],
+    extends: [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+    ],
+
     plugins: {
       react,
       "react-hooks": reactHooks,
@@ -39,7 +45,9 @@ export default defineConfig([
       "@typescript-eslint/explicit-function-return-type": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
+
         { argsIgnorePattern: "^_" },
+
       ],
     },
   },
@@ -48,8 +56,8 @@ export default defineConfig([
     files: ["**/*.tsx"], // ← gäller enbart TSX-komponenter
     languageOptions: {
       parserOptions: {
-        project: [ "./tsconfig.app.json",
-          "./tsconfig.node.json" ],
+        project: ["./tsconfig.app.json",
+          "./tsconfig.node.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       globals: {
@@ -77,6 +85,7 @@ export default defineConfig([
       "react/jsx-uses-react": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
+
       "jsx-a11y/alt-text": "warn",
       "react-refresh/only-export-components": [
         "warn",
