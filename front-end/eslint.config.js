@@ -34,6 +34,7 @@ export default defineConfig([
     },
     rules: {
       ...js.configs.recommended.rules,
+      "no-undef": "off", // TS sköter undefined-varningar; undvik falsklarm i TS/TSX
 
       // TS-regler som ska vara strikta i .ts
       "@typescript-eslint/explicit-function-return-type": "error",
@@ -68,6 +69,7 @@ export default defineConfig([
     },
     rules: {
       ...js.configs.recommended.rules,
+      "no-undef": "off", // viktigt i TSX för nya JSX-transformen
 
       // Stäng av just explicit-return-type här
       "@typescript-eslint/explicit-function-return-type": "error",
