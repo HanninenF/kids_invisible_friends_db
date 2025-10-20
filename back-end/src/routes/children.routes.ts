@@ -8,7 +8,14 @@ import * as childrenService from '../services/children.service';
 import type { ChildDTO } from '../types/DTO.types/children.DTO.types';
 const router = express.Router();
 
-router.get('/children', async (_req, res) => {
+router.get('/', async (_req, res) => {
   const children: ChildDTO[] = await childrenService.getAllChildren();
   res.json(children);
 });
+
+router.post('/', async (req, res) => {
+  const newChild: ChildDTO = await childrenService.createChild(req.body as ChildDTO);
+  res.status(201).json(newChild);
+});
+
+export default router;
