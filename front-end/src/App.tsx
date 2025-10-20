@@ -1,7 +1,16 @@
-import { type JSX } from 'react';
+import React from "react";
+import "./styles/App.scss";
+import Home from "./components/Home";
+import { FormProvider } from "./context/FormContext";
 
-import './App.scss';
+const App: React.FC = () => {
+  return (
 
-export default function App(): JSX.Element {
-  return <></>;
-}
+    <FormProvider>
+      <Home />
+    </FormProvider>
+
+  );
+};
+
+export default App;

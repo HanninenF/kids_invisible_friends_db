@@ -1,0 +1,234 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Fullsida-layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+.header {
+  background-color: #4fa3b5;
+  color: white;
+  padding: 20px 15px;
+  text-align: start;
+  font-size: 1.5rem;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.header span {
+  padding: 0 5px;
+}
+
+.word {
+  opacity: 0;
+  display: inline-block;
+  animation: fadeIn 0.8s forwards;
+}
+
+.word:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.word:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.word:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.word:nth-child(4) {
+  animation-delay: 3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MAIN */
+.app-container {
+  display: flex;
+  flex: 1;
+  background-color: #e7f4f6;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 320px;
+  background-color: #cce6ea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  min-height: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn {
+  padding: 15px 20px;
+  background-color: #a7d8de;
+  border: none;
+  cursor: pointer;
+  width: 90%;
+  border-radius: 6px;
+  color: #2a2a2a;
+  font-weight: 500;
+  transition: background 0.2s;
+
+}
+
+.btn:hover {
+  background-color: #96cdd3;
+}
+
+.btn.active {
+  background-color: #7fc4cb;
+  color: white;
+}
+
+.btn.add {
+  margin-top: auto;
+  background-color: #4fa3b5;
+  color: white;
+  font-weight: bold;
+}
+
+.btn.add:hover {
+  background-color: #418e9f;
+}
+
+/* Formuläret */
+.form-area {
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  justify-content: center;
+}
+
+.Modal {
+  background-color: #a7d8de;
+  padding: 15px;
+  width: 90%;
+  border-radius: 6px;
+  color: #2a2a2a;
+}
+
+.Modal h4 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.Modal input,
+.Modal select {
+  width: 95%;
+  margin-bottom: 8px;
+  padding: 6px;
+  border: 1px solid #8fbec4;
+  border-radius: 4px;
+}
+
+/* ==== Container med två kolumner ==== */
+.card-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  background-color: #e7f4f6;
+  padding: 30px;
+  gap: 40px;
+}
+
+/* ==== Varje lista (vänster & höger kolumn) ==== */
+.list-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+  max-width: 400px;
+}
+
+/* Rubriker för listor */
+.list-column h2 {
+  text-align: center;
+  color: #4fa3b5;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #4fa3b5;
+  padding-bottom: 5px;
+}
+
+/* ==== Korten i listorna ==== */
+.card {
+  background-color: #d3f1f5;
+  border-radius: 8px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+  color: #4fa3b5;
+  margin-bottom: 6px;
+}
+
+.card section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card section button {
+  background-color: transparent;
+  border: none;
+}
+
+.card section .btnDelete:hover {
+  font-weight: 700;
+  color: red;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #4fa3b5;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 311px) {
+
+  .header,
+  .footer {
+    width: 311px;
+  }
+}
