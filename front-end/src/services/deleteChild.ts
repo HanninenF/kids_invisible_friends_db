@@ -1,6 +1,6 @@
-export default async function deleteChild(
-  id: number,
-): Promise<Placeholdertype | { message: string }> {
+import type { Child } from '../domain/types';
+
+export default async function deleteChild(id: number): Promise<Child | { message: string }> {
   const baseUrl = 'http://localhost:3000/api/';
   const childrenUrl = `${baseUrl}children/${id}`;
 
@@ -18,7 +18,7 @@ export default async function deleteChild(
   if (!response.ok) {
     throw new Error(`internal server error: ${response.status}`);
   }
-  const result = (await response.json()) as Placeholdertype;
+  const result = (await response.json()) as Child;
   console.log('Delete-log: ', response.status, result);
   return result;
 }
