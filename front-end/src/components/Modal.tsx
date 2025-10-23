@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useFormContext } from '../context/FormContext';
-import type { ModalProps } from '../type/DataType';
+import { useChildFriendContext } from '../domain/useContext';
 import toChild from '../helpers/toChild';
 import createChild from '../services/createChild';
-import toFormData from '../helpers/toFormData';
+import type { ModalProps } from '../type/DataType';
 
-const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) => {
+const Modal: React.FC<ModalProps> = ({ onAddVan, barnLista = [] }) => {
+  const { setKids, setInvisibleFriends } = useChildFriendContext();
   const { activeForm, formData, updateField, resetForm } = useFormContext();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -30,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) =>
       const newChild = toChild(newBarn);
       try {
         const result = await createChild(newChild);
-        onAddBarn?.(toFormData(result));
+        setKids((prev) => [...prev, result]);
         alert('Barn tillagd!');
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);

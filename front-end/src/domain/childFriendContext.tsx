@@ -12,6 +12,8 @@ import { ChildFriendContext } from './useContext';
 export type ChildFriendContextType = {
   setKids: Dispatch<SetStateAction<Child[]>>;
   setInvisibleFriends: Dispatch<SetStateAction<InvisibleFriend[]>>;
+  kids: Child[];
+  InvisibleFriends: InvisibleFriend[];
 };
 
 type ChildFriendContextProviderProps = {
@@ -22,16 +24,16 @@ export const ChildFriendContextProvider = ({
   children,
 }: Readonly<ChildFriendContextProviderProps>): ReactElement => {
   const [kids, setKids] = useState<Child[]>([]);
-  const [InvisibleFriend, setInvisibleFriends] = useState<InvisibleFriend[]>([]);
+  const [InvisibleFriends, setInvisibleFriends] = useState<InvisibleFriend[]>([]);
 
   const value = useMemo(
     () => ({
       kids,
       setKids,
-      InvisibleFriend,
+      InvisibleFriends,
       setInvisibleFriends,
     }),
-    [kids, setKids, InvisibleFriend, setInvisibleFriends],
+    [kids, setKids, InvisibleFriends, setInvisibleFriends],
   );
 
   return <ChildFriendContext.Provider value={value}>{children}</ChildFriendContext.Provider>;
