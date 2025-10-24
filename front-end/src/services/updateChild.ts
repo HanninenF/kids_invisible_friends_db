@@ -1,11 +1,10 @@
 // servicesAPI/updateChild.ts
 
-export type UpdateChildPayload = Partial<Omit<Placeholdertype, 'id'>>;
+import type { Child } from '../domain/types';
 
-export default async function updateChild(
-  id: number,
-  patch: UpdateChildPayload,
-): Promise<Placeholdertype> {
+export type UpdateChildPayload = Partial<Omit<Child, 'id'>>;
+
+export default async function updateChild(id: number, patch: UpdateChildPayload): Promise<Child> {
   const url = `http://localhost:3000/api/children/${id}`;
 
   const res = await fetch(url, {
@@ -18,6 +17,6 @@ export default async function updateChild(
     throw new Error(`update failed: ${res.status}`);
   }
 
-  const updatedChild = (await res.json()) as Placeholdertype;
+  const updatedChild = (await res.json()) as Child;
   return updatedChild;
 }

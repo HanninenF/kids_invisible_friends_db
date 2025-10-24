@@ -40,3 +40,8 @@ för att uppdatera din feature-branch med senaste `main` innan du pushar.
 git fetch origin
 git merge --ff-only origin/main
 ```
+
+git fetch origin
+refs/pull/7d44495bd5046402e455166141bfb1fd21227f0b/merge:-7d44495bd5046402e455166141bfb1fd21227f0b
+git fetch origin refs/pull/22/merge:pr-22 git fetch origin git merge --ff-only origin/main git
+branch -D pr-22

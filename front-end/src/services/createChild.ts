@@ -1,6 +1,6 @@
-export default async function createChild(
-  child: Omit<Placeholdertyper, 'id'>,
-): Promise<Placeholdertyper> {
+import type { Child } from '../domain/types';
+
+export default async function createChild(child: Omit<Child, 'id'>): Promise<Child> {
   const baseUrl = 'http://localhost:3000/api/';
   const childrenUrl = `${baseUrl}children`;
 
@@ -15,10 +15,11 @@ export default async function createChild(
   });
 
   if (!response.ok) {
-    throw new Error(`internal server error: ${response.status}`);
+    const text = await response.text().catch(() => '');
+    throw new Error(`HTTP ${response.status} ${response.statusText}${text ? `: ${text}` : ''}`);
   }
 
-  const result = (await response.json()) as Placeholdertyper; //TODO: kolla hur svarstypen ser ut;
+  const result = (await response.json()) as Child; //TODO: kolla hur svarstypen ser ut;
 
   console.log(response.status, result);
   return result;

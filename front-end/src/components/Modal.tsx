@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useFormContext } from "../context/FormContext";
-import type { ModalProps } from "../type/DataType"
-
+import React, { useState } from 'react';
+import { useFormContext } from '../context/FormContext';
+import type { ModalProps } from '../type/DataType';
+import toChild from '../helpers/toChild';
+import createChild from '../services/createChild';
+import toFormData from '../helpers/toFormData';
 
 const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) => {
   const { activeForm, formData, updateField, resetForm } = useFormContext();
@@ -12,20 +14,29 @@ const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) =>
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!data.namn) newErrors.namn = "Namn krävs";
-    if (!data.ålder) newErrors.ålder = "Ålder krävs";
+    if (!data.namn) newErrors.namn = 'Namn krävs';
+    if (!data.ålder) newErrors.ålder = 'Ålder krävs';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validate()) return;
 
-    if (activeForm === "barn") {
+    if (activeForm === 'barn') {
       const newBarn = { ...data };
-      onAddBarn?.(newBarn);
+
+      //skicka barn till db
+      const newChild = toChild(newBarn);
+      try {
+        const result = await createChild(newChild);
+        onAddBarn?.(toFormData(result));
+        alert('Barn tillagd!');
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        alert('Barn kunde inte skapas!');
+        console.error('Skapa barn misslyckades:', msg);
+      }
     } else {
       const newVan = { ...data };
       onAddVan?.(newVan);
@@ -33,19 +44,18 @@ const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) =>
 
     resetForm(activeForm);
     setErrors({});
-    alert(`${activeForm === "barn" ? "Barn" : "Osynlig vän"} tillagd!`);
   };
 
   return (
     <div className="Modal">
-      <h4>{activeForm === "barn" ? "Lägg till barn" : "Lägg till osynlig vän"}</h4>
+      <h4>{activeForm === 'barn' ? 'Lägg till barn' : 'Lägg till osynlig vän'}</h4>
 
       <label>Namn</label>
       <input
         type="text"
         value={data.namn}
-        onChange={(e) => updateField(activeForm, "namn", e.target.value)}
-        style={errors.namn ? { borderColor: "red" } : {}}
+        onChange={(e) => updateField(activeForm, 'namn', e.target.value)}
+        style={errors.namn ? { borderColor: 'red' } : {}}
       />
 
       <label>Ålder</label>
@@ -53,47 +63,47 @@ const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) =>
         type="number"
         min="1"
         value={data.ålder}
-        onChange={(e) => updateField(activeForm, "ålder", e.target.value)}
+        onChange={(e) => updateField(activeForm, 'ålder', e.target.value)}
         placeholder={errors.ålder}
-        style={errors.ålder ? { borderColor: "red" } : {}}
+        style={errors.ålder ? { borderColor: 'red' } : {}}
       />
 
       <label>Hårfärg</label>
       <input
         type="text"
         value={data.hårfärg}
-        onChange={(e) => updateField(activeForm, "hårfärg", e.target.value)}
+        onChange={(e) => updateField(activeForm, 'hårfärg', e.target.value)}
       />
 
       <label>Ögonfärg</label>
       <input
         type="text"
         value={data.ögonfärg}
-        onChange={(e) => updateField(activeForm, "ögonfärg", e.target.value)}
+        onChange={(e) => updateField(activeForm, 'ögonfärg', e.target.value)}
       />
 
       <label>Snutte</label>
       <input
         type="text"
         value={data.snutte}
-        onChange={(e) => updateField(activeForm, "snutte", e.target.value)}
+        onChange={(e) => updateField(activeForm, 'snutte', e.target.value)}
       />
 
       <label>Main förmåga</label>
       <input
         type="text"
         value={data.förmåga}
-        onChange={(e) => updateField(activeForm, "förmåga", e.target.value)}
+        onChange={(e) => updateField(activeForm, 'förmåga', e.target.value)}
       />
 
       {/* Dropdown för osynlig vän */}
-      {activeForm === "vän" && (
+      {activeForm === 'vän' && (
         <>
           <label>Välj barn som vännen tillhör</label>
           <select
-            value={data.tillhör || ""}
-            onChange={(e) => updateField(activeForm, "tillhör", e.target.value)}
-            style={errors.tillhör ? { borderColor: "red" } : {}}
+            value={data.tillhör || ''}
+            onChange={(e) => updateField(activeForm, 'tillhör', e.target.value)}
+            style={errors.tillhör ? { borderColor: 'red' } : {}}
           >
             <option value="">-- Välj barn --</option>
             {barnLista.map((b, i) => (
@@ -108,10 +118,10 @@ const Modal: React.FC<ModalProps> = ({ onAddBarn, onAddVan, barnLista = [] }) =>
       <button
         type="button"
         className="btn add"
-        style={{ width: "95%", marginTop: "10px" }}
+        style={{ width: '95%', marginTop: '10px' }}
         onClick={handleSubmit}
       >
-        {activeForm === "barn" ? "Lägg till Barn" : "Lägg till Osynlig vän"}
+        {activeForm === 'barn' ? 'Lägg till Barn' : 'Lägg till Osynlig vän'}
       </button>
     </div>
   );
