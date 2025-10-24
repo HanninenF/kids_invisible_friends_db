@@ -1,15 +1,16 @@
-import React from "react";
-import "./styles/App.scss";
-import Home from "./components/Home";
-import { FormProvider } from "./context/FormContext";
+import React from 'react';
+import Home from './components/Home';
+import { FormProvider } from './context/FormContext';
+import { ChildFriendContextProvider } from './domain/childFriendContext';
+import './styles/App.scss';
 
 const App: React.FC = () => {
   return (
-
-    <FormProvider>
-      <Home />
-    </FormProvider>
-
+    <ChildFriendContextProvider>
+      <FormProvider>
+        <Home />
+      </FormProvider>
+    </ChildFriendContextProvider>
   );
 };
 
