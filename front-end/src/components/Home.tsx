@@ -38,10 +38,10 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
 // HUVUDKOMPONENTEN
 const Home: React.FC = () => {
-  const { setKids, setInvisibleFriends, kids, InvisibleFriends } = useChildFriendContext();
+  const { setKids, /* setInvisibleFriends ,*/ kids, InvisibleFriends } = useChildFriendContext();
   const handleDelete = async (id: string) => {
     const num = Number(id);
-    const message = await deleteChild(num);
+    /* const message = */ await deleteChild(num);
     const children = await fetchChildren();
     setKids(children);
   };
@@ -74,15 +74,20 @@ const Home: React.FC = () => {
               <p>Inga barn äbarnnnu</p>
             ) : (
               kids.map((k, i) => (
+
                 <div key={i} className="card">
                   <button onClick={() => handleDelete(k.id)}>X</button>
-                  <h3>{k.name}</h3>
-                  <p>Ålder: {k.age}</p>
-                  <p>Hårfärg: {k.hairColor}</p>
-                  <p>Ögonfärg: {k.eyeColor}</p>
-                  <p>Snutte: {k.comfortObject}</p>
-                  <p>Förmåga: {k.mainAbility}</p>
+                  <div className="card-info">
+                    <h3>{k.name}</h3>
+                    <p>Ålder: {k.age}</p>
+                    <p>Hårfärg: {k.hairColor}</p>
+                    <p>Ögonfärg: {k.eyeColor}</p>
+                    <p>Snutte: {k.comfortObject}</p>
+                    <p>Förmåga: {k.mainAbility}</p>
+                  </div>
                 </div>
+
+
               ))
             )}
           </div>
