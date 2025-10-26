@@ -26,4 +26,22 @@ router.post('/', async (req, res) => {
   res.status(201).json(newChild);
 });
 
+
+// Uppdaterad DELETE-rutt för att ta bort baserat på ID
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedChild = await childrenService.deleteChild(Number(id)); // Försök att ta bort barnet baserat på id
+    if (deletedChild) {
+      res.status(204).send(); // Om barnet raderas, returnera status 204 (no content)
+    } else {
+      res.status(404).json({ error: `No child found with id: ${id}` }); // Om inget barn med det id:t finns
+    }
+  } catch (error) {
+    console.error('Error in DELETE /children/:id route:', error);
+    res.status(500).json({ error: 'Något gick fel vid borttagning av barnet.' });
+  }
+});
+
+
 export default router;
