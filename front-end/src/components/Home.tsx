@@ -42,13 +42,11 @@ const Home: React.FC = () => {
   const { setKids, /* setInvisibleFriends ,*/ kids, InvisibleFriends } = useChildFriendContext();
   const [confirmId, setConfirmId] = useState<number | null>(null);
   const handleDelete = async (id: number) => {
-    try {
-      await deleteChild(id);
-      setKids(prev => prev.filter(k => Number(k.id) !== id));
-      setConfirmId(null);
-    } catch (error) {
-      console.error("Fel vid borttagning av barn:", error);
-    }
+    const num = Number(id);
+    /* const message =  */await deleteChild(num);
+    const children = await fetchChildren();
+    setConfirmId(null);
+    setKids(children);
   };
 
 

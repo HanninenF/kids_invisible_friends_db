@@ -6,7 +6,7 @@ import createChild from '../services/createChild';
 import type { ModalProps } from '../type/DataType';
 
 const Modal: React.FC<ModalProps> = ({ onAddVan, barnLista = [] }) => {
-  const { setKids, setInvisibleFriends } = useChildFriendContext();
+  const { setKids,/*  setInvisibleFriends */ } = useChildFriendContext();
   const { activeForm, formData, updateField, resetForm } = useFormContext();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
