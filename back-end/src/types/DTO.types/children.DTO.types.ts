@@ -3,6 +3,7 @@ de är separerade från raw-data och databastyper
 och att de är klara att använda i ex controllers, services  */
 
 export type ChildDTO = {
+  id: number;
   name: string;
   age: number;
   hairColor: string;

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormContext } from '../context/FormContext';
 import { useChildFriendContext } from '../domain/useContext';
 import deleteChild from '../services/deleteChild';
 import fetchChildren from '../services/fetchChildren';
 import type { SidebarProps } from '../type/DataType';
 import Modal from './Modal';
+import ConfirmModal from './ConfirmModal';
 
 // SIDEBAR – inuti samma fil (ingen extra import behövs)
 
@@ -38,13 +39,18 @@ const Sidebar: React.FC<SidebarProps> = () => {
 
 // HUVUDKOMPONENTEN
 const Home: React.FC = () => {
-  const { setKids, setInvisibleFriends, kids, InvisibleFriends } = useChildFriendContext();
-  const handleDelete = async (id: string) => {
+  const { setKids, /* setInvisibleFriends ,*/ kids, InvisibleFriends } = useChildFriendContext();
+  const [confirmId, setConfirmId] = useState<number | null>(null);
+  const handleDelete = async (id: number) => {
     const num = Number(id);
-    const message = await deleteChild(num);
+    /* const message =  */await deleteChild(num);
     const children = await fetchChildren();
+    setConfirmId(null);
     setKids(children);
   };
+
+
+
 
   useEffect(() => {
     const renderCards = async () => {
@@ -73,17 +79,30 @@ const Home: React.FC = () => {
             {kids.length === 0 ? (
               <p>Inga barn äbarnnnu</p>
             ) : (
-              kids.map((k, i) => (
-                <div key={i} className="card">
-                  <button onClick={() => handleDelete(k.id)}>X</button>
-                  <h3>{k.name}</h3>
-                  <p>Ålder: {k.age}</p>
-                  <p>Hårfärg: {k.hairColor}</p>
-                  <p>Ögonfärg: {k.eyeColor}</p>
-                  <p>Snutte: {k.comfortObject}</p>
-                  <p>Förmåga: {k.mainAbility}</p>
+              kids.map((k) => (
+
+                <div key={k.id} className="card">
+                  <button onClick={() => setConfirmId(Number(k.id))}>X</button>
+
+                  <div className="card-info">
+                    <h3>{k.name}</h3>
+                    <p>Ålder: {k.age}</p>
+                    <p>Hårfärg: {k.hairColor}</p>
+                    <p>Ögonfärg: {k.eyeColor}</p>
+                    <p>Snutte: {k.comfortObject}</p>
+                    <p>Förmåga: {k.mainAbility}</p>
+                  </div>
                 </div>
+
               ))
+            )}
+
+            {confirmId !== null && (
+              <ConfirmModal
+                message="Är du säker på att du vill radera detta barn?"
+                onConfirm={() => handleDelete(confirmId)}
+                onCancel={() => setConfirmId(null)}
+              />
             )}
           </div>
 
@@ -92,8 +111,8 @@ const Home: React.FC = () => {
             {InvisibleFriends.length === 0 ? (
               <p>Inga osynliga vänner ännu</p>
             ) : (
-              InvisibleFriends.map((v, i) => (
-                <div key={i} className="card">
+              InvisibleFriends.map((v) => (
+                <div key={v.id} className="card">
                   <h3>{v.name}</h3>
                   <p>Tillhör: {v.childId}</p>
                   <p>Ålder: {v.age}</p>

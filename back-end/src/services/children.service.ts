@@ -7,8 +7,26 @@ export const getAllChildren = async (): Promise<ChildDTO[]> => {
   return rows.map(mapChildBase);
 };
 
+
+export const createChild = async (data: Prisma.ChildCreateInput): Promise<ChildDTO> => {
+  const child = await childData.createOne(data);
+  return mapChildBase(child);
+};
+
+
+export const deleteChild = async (id: number): Promise<boolean> => {
+  try {
+    const deletedChild = await childData.deleteOne(id);
+    return !!deletedChild;
+  } catch (error) {
+    console.error('Error deleting child:', error);
+    throw new Error('Failed to delete child.');
+  }
+};
+
 function mapChildBase(c: Child): ChildDTO {
   return {
+    id: c.id, // Lägg till ID här
     name: c.name,
     age: c.age,
     hairColor: c.hairColor,
@@ -18,7 +36,6 @@ function mapChildBase(c: Child): ChildDTO {
   };
 }
 
-export const createChild = async (data: Prisma.ChildCreateInput): Promise<ChildDTO> => {
-  const child = await childData.createOne(data);
-  return mapChildBase(child);
-};
+
+
+
