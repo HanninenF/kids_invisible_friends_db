@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormContext } from '../context/FormContext';
 import { useChildFriendContext } from '../domain/useContext';
+import deleteChild from '../services/deleteChild';
 import fetchChildren from '../services/fetchChildren';
 import type { SidebarProps } from '../type/DataType';
 import Modal from './Modal';
@@ -38,6 +39,12 @@ const Sidebar: React.FC<SidebarProps> = () => {
 // HUVUDKOMPONENTEN
 const Home: React.FC = () => {
   const { setKids, setInvisibleFriends, kids, InvisibleFriends } = useChildFriendContext();
+  const handleDelete = async (id: string) => {
+    const num = Number(id);
+    const message = await deleteChild(num);
+    const children = await fetchChildren();
+    setKids(children);
+  };
 
   useEffect(() => {
     const renderCards = async () => {
@@ -68,6 +75,7 @@ const Home: React.FC = () => {
             ) : (
               kids.map((k, i) => (
                 <div key={i} className="card">
+                  <button onClick={() => handleDelete(k.id)}>X</button>
                   <h3>{k.name}</h3>
                   <p>Ålder: {k.age}</p>
                   <p>Hårfärg: {k.hairColor}</p>
